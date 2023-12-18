@@ -104,14 +104,28 @@ def login():
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
 
+
+def logout():
+    # Destroy both the login frame and the record management frame
+    login_frame.destroy()
+    try:
+        record_management_frame.destroy()
+    except NameError:
+        pass  # Ignore if record_management_frame is not defined
+    root.destroy()  # Close the entire application
+
 # Function to show the record management page
 def show_record_management_page():
     # Destroy the login frame
     login_frame.destroy()
+    root.geometry("550x340")
 
     # Create a new frame for the record management page
+    global record_management_frame
     record_management_frame = ttk.Frame(root)
     record_management_frame.grid(row=0, column=0, sticky="nsew")
+
+    tk.Button(record_management_frame, text="Logout", command=logout).grid(row=10, column=2, columnspan=2, pady=10)
 
     global entry_name, entry_class, entry_roll, entry_gender, entry_subject, entry_salary, entry_Gender, entry_sname
 
@@ -150,11 +164,10 @@ def show_record_management_page():
     tk.Button(record_management_frame, text="Enter Data for new staff", command=enter_staff_data).grid(row=6, column=4, columnspan=2, pady=10)
     tk.Button(record_management_frame, text="Search staff Data", command=search_staff_data).grid(row=7, column=4, columnspan=2, pady=10)
     tk.Button(record_management_frame, text="Remove staff record", command=remove_staff_record).grid(row=8, column=4, columnspan=2, pady=10)
-    tk.Button(record_management_frame, text="clear", command=clear_fields).grid(row=9, column=2, columnspan=2, pady=10)
-
+    tk.Button(record_management_frame, text="clear", command=clear_fields).grid(row=9, column=1, columnspan=2, pady=10)
 # Create the main window
 root = tk.Tk()
-root.title("Login Page")
+root.title("RECORD MANAGEMENT::::")
 
 # Create a frame for the login page
 login_frame = ttk.Frame(root)
